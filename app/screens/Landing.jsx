@@ -15,12 +15,13 @@ import * as theme from '@app/styles/theme';
 
 import { requestPermissions } from '../utils';
 
-// TODO: Request all permissions at this stage
-// TODO: Contact, Receiving SMS, Internet, Audio calls, Video Calls
-
 const Landing = () => {
   const nextCallback = () => {
-    requestPermissions();
+    try {
+      requestPermissions();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

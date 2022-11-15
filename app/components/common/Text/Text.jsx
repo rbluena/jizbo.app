@@ -33,7 +33,7 @@ TextComponent.propTypes = {
   align: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   variant: PropTypes.oneOf(['primary', 'secondary', 'muted']),
-  style: PropTypes.objectOf({}),
+  style: PropTypes.object,
 };
 
 export default TextComponent;
