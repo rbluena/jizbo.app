@@ -18,8 +18,9 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/function-component-definition': 'off',
-    'no-use-before-define': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/forbid-prop-types': 'off',
+    'no-use-before-define': 'off',
     'no-restricted-exports': 'off',
   },
   settings: {
