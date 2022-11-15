@@ -13,6 +13,9 @@ import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
 
+// TODO: Request all permissions at this stage
+// TODO: Contanct, Receiving SMS, Internet, Audio calls, Video Calls
+
 const Landing = () => (
   <View style={styles.container}>
     <View style={styles.header}>

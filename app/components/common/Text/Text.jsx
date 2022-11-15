@@ -7,10 +7,11 @@ import { COLORS } from '@app/styles/theme';
 const TextComponent = ({
   children,
   variant,
+  align = 'left',
   style: extStyle = {},
   ...props
 }) => {
-  const style = {};
+  const style = { textAlign: align };
 
   if (variant === 'muted') {
     style.color = COLORS.fonts.muted;
@@ -23,11 +24,13 @@ const TextComponent = ({
 };
 
 TextComponent.defaultProps = {
+  align: 'left',
   variant: 'primary',
   style: {},
 };
 
 TextComponent.propTypes = {
+  align: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   variant: PropTypes.oneOf(['primary', 'secondary', 'muted']),
   style: PropTypes.objectOf({}),
