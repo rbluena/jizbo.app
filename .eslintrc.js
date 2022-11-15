@@ -20,5 +20,15 @@ module.exports = {
     'react/function-component-definition': 'off',
     'no-use-before-define': 'off',
   },
-  settings: {},
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@app', './app'],
+          ['~', './'],
+        ],
+        extensions: ['.js', '.jsx'],
+      },
+    },
+  },
 };
