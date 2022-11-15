@@ -19,6 +19,8 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/function-component-definition': 'off',
     'no-use-before-define': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-restricted-exports': 'off',
   },
   settings: {
     'import/resolver': {
