@@ -1,3 +1,4 @@
+import { SCREEN } from '@app/constants';
 import React, { useState, useRef } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
 
@@ -6,8 +7,6 @@ import TextComponent from '@app/components/common/Text';
 import PhoneInput from '@app/components/form/PhoneInput';
 
 import * as theme from '@app/styles/theme';
-
-import { SCREEN } from '../constants';
 
 const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState(null);

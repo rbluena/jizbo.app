@@ -26,7 +26,6 @@ Button.defaultProps = {
 Button.propTypes = {
   label: PropTypes.string,
   variant: PropTypes.string,
-  children: PropTypes.node.isRequired,
 };
 
 export default Button;

@@ -13,35 +13,43 @@ import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
 
-// TODO: Request all permissions at this stage
-// TODO: Contanct, Receiving SMS, Internet, Audio calls, Video Calls
+import { requestPermissions } from '../utils';
 
-const Landing = () => (
-  <View style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.headerTitle}>Jizbo</Text>
-      <TextComponent size="m" style={{ textAlign: 'center' }}>
-        Engaging in calls with prominents people while supporting your
-        communities.
-      </TextComponent>
-    </View>
-    <View style={styles.footer}>
-      <TextComponent variant="muted">
-        By tapping continue button, you agree and accept our
-      </TextComponent>
-      <TouchableOpacity>
-        <TextComponent
-          variant="muted"
-          onPress={() => Linking.openURL('https://google.com')}>
-          Terms of Service & Privacy Policy
+// TODO: Request all permissions at this stage
+// TODO: Contact, Receiving SMS, Internet, Audio calls, Video Calls
+
+const Landing = () => {
+  const nextCallback = () => {
+    requestPermissions();
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Jizbo</Text>
+        <TextComponent size="m" style={{ textAlign: 'center' }}>
+          Engaging in calls with prominents people while supporting your
+          communities.
         </TextComponent>
-      </TouchableOpacity>
-      <View>
-        <Button variant="primary" label="Continue" />
+      </View>
+      <View style={styles.footer}>
+        <TextComponent variant="muted">
+          By tapping continue button, you agree and accept our
+        </TextComponent>
+        <TouchableOpacity>
+          <TextComponent
+            variant="muted"
+            onPress={() => Linking.openURL('https://google.com')}>
+            Terms of Service & Privacy Policy
+          </TextComponent>
+        </TouchableOpacity>
+        <View>
+          <Button variant="primary" label="Continue" onPress={nextCallback} />
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 export default Landing;
 
