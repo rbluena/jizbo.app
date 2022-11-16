@@ -7,4 +7,11 @@ export const SCREEN = {
   height,
 };
 
-export const FAKE = 'CLEARING WARNING';
+export const STATUSES = {
+  online: {
+    color: '#00FFFF',
+  },
+  offline: {
+    color: '#fff',
+  },
+};
