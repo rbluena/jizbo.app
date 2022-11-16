@@ -1,3 +1,4 @@
+import { SCREEN } from '@app/constants';
 import React, { useState } from 'react';
 import {
   StyleSheet,
@@ -15,6 +16,7 @@ import { COLORS, FONT_SIZE } from '@app/styles/theme';
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [userName, setUserName] = useState('');
+  const [bio, setBio] = useState('');
 
   const loadProfileImage = () => {};
 
@@ -26,6 +28,8 @@ const Profile = () => {
         {profileImage ? <Image /> : <Text style={styles.profileLetter}>R</Text>}
       </TouchableHighlight>
 
+      {/* <TextComponent align="center">+254 741 709889</TextComponent> */}
+
       <View>
         <TextInput
           placeholder="Name"
@@ -34,10 +38,14 @@ const Profile = () => {
           onChange={text => setUserName(text)}
           value={userName}
         />
-        <TextComponent align="center">+254 741 709889</TextComponent>
-      </View>
-
-      <View>
+        <TextInput
+          placeholder="About me"
+          onChange={text => setBio(text)}
+          style={{ fontSize: FONT_SIZE.m }}
+          value={bio}
+          multiline
+          maxLength={35}
+        />
         <TextComponent align="center">
           This could be your fullname or nickname. This is how people will know
           you from Jizbo.
@@ -53,7 +61,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
+    padding: 0.1 * SCREEN.width,
   },
   profileImageContainer: {
     width: 120,
