@@ -4,6 +4,7 @@ const PALETTE = {
   gray: '#C3BEC0',
   darkGray: '#5C5E5B',
   dark: '#131410',
+  accent: '#39ff14',
   error: '#',
 };
 
@@ -26,6 +27,7 @@ export const COLORS = {
   body: PALETTE.dark,
   border: PALETTE.lightGray,
   inputBg: PALETTE.light,
+  accent: PALETTE.accent,
 };
 
 export const FONT_SIZE = {
