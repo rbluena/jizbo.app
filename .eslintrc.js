@@ -22,6 +22,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'no-use-before-define': 'off',
     'no-restricted-exports': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {

@@ -1,18 +1,48 @@
 import { SCREEN } from '@app/constants';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-import { SPACING } from '~/app/styles/theme';
+import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
 
 import Avatar from '@app/components/common/Avatar';
 import Badge from '@app/components/common/Badge';
 import TextComponent from '@app/components/common/Text';
+
+import { SPACING } from '@app/styles/theme';
+
+// TODO: If prominent/callee is not online, once user press call button should be directed to calender to book for available dates.
+
+const CallCard = () => {
+  return (
+    <View style={styles.callCard}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <TextComponent
+          variant="muted"
+          fontSize="m"
+          style={{ fontWeight: 'bold' }}>
+          Healthy Lifestyles
+        </TextComponent>
+        <MaterialIcons
+          name="info"
+          size={28}
+          color="black"
+          onPress={() => console.log('Something to be pressed!')}
+        />
+      </View>
+      <TextComponent fontSize="s" style={{ fontWeight: 'bold' }}>
+        Wed 23rd, June 2022 - 13:00
+      </TextComponent>
+
+      {/* start: People wishing to participate  */}
+
+      {/* end: People wishing to participate  */}
+    </View>
+  );
+};
 
 const Profile = () => {
   return (
@@ -77,6 +107,31 @@ const Profile = () => {
           </View>
         </View>
       </View>
+
+      {/* start: Similar contacts */}
+      <View>
+        {/* <TextComponent fontSize="l" style={{ fontWeight: 'bold' }}>
+          Call history
+        </TextComponent> */}
+      </View>
+      {/* end: Similar contacts */}
+
+      {/* start: Upcoming group calls */}
+      <View>
+        <TextComponent fontSize="l" style={{ fontWeight: 'bold' }}>
+          {/* Open call are meant for anyone or invited only to join */}
+          Open calls
+        </TextComponent>
+
+        <FlatList
+          data={[{}, {}, {}, {}, {}, {}]}
+          renderItem={CallCard}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          contentContainerStyle={{ padding: 8 }}
+        />
+      </View>
+      {/* end: Upcoming group calls */}
     </View>
   );
 };
@@ -99,5 +154,13 @@ const styles = StyleSheet.create({
     flexBasis: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  callCard: {
+    marginRight: 4,
+    borderRadius: 8,
+    width: SCREEN.width * 0.6,
+    padding: 4,
+    backgroundColor: 'white',
+    elevation: 2,
   },
 });
