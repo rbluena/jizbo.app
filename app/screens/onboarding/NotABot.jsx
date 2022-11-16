@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 const NotABot = () => {
   return (
@@ -10,5 +10,3 @@ const NotABot = () => {
 };
 
 export default NotABot;
-
-const styles = StyleSheet.create({});
