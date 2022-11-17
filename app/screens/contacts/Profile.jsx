@@ -1,7 +1,7 @@
 import { SCREEN } from '@app/constants';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import Avatar from '@app/components/common/Avatar';
 import Badge from '@app/components/common/Badge';
@@ -10,7 +10,6 @@ import TextComponent from '@app/components/common/Text';
 import { SPACING } from '@app/styles/theme';
 
 // TODO: If prominent/callee is not online, once user press call button should be directed to calender to book for available dates.
-
 const CallCard = () => {
   return (
     <View style={styles.callCard}>
@@ -76,45 +75,43 @@ const Profile = () => {
         }}>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <View style={styles.callingButton}>
-            <TouchableOpacity onPress={() => console.log('Calling audio...')}>
-              <Badge>
-                <MaterialIcons name="call" size={28} color="white" />
-              </Badge>
-            </TouchableOpacity>
-            <TextComponent
+          {/* <View style={styles.callingButton}> */}
+          <TouchableOpacity onPress={() => console.log('Calling audio...')}>
+            <Badge>
+              <MaterialIcons name="call" size={28} color="white" />
+              <TextComponent style={{ color: 'white' }}>
+                KES 220/Min
+              </TextComponent>
+            </Badge>
+          </TouchableOpacity>
+          {/* <TextComponent
               variant="muted"
               style={{ fontWeight: 'bold', marginLeft: 8 }}>
               KES 220/Min
-            </TextComponent>
-          </View>
+            </TextComponent> */}
+          {/* </View> */}
 
-          <View style={styles.callingButton}>
-            <TextComponent
+          {/* <View style={styles.callingButton}> */}
+          {/* <TextComponent
               variant="muted"
               style={{ fontWeight: 'bold', marginRight: 8 }}>
               KES 540/Min
-            </TextComponent>
-            <TouchableOpacity onPress={() => console.log('Calling video..')}>
-              <Badge>
-                <MaterialIcons name="videocam" size={28} color="white" />
-              </Badge>
-            </TouchableOpacity>
-          </View>
+            </TextComponent> */}
+          <TouchableOpacity onPress={() => console.log('Calling video..')}>
+            <Badge>
+              <MaterialIcons name="videocam" size={28} color="white" />
+              <TextComponent style={{ color: 'white' }}>
+                KES 540/Min
+              </TextComponent>
+            </Badge>
+          </TouchableOpacity>
+          {/* </View> */}
         </View>
       </View>
-
-      {/* start: Similar contacts */}
-      <View>
-        {/* <TextComponent fontSize="l" style={{ fontWeight: 'bold' }}>
-          Call history
-        </TextComponent> */}
-      </View>
-      {/* end: Similar contacts */}
 
       {/* start: Upcoming group calls */}
       <View>
@@ -124,9 +121,9 @@ const Profile = () => {
         </TextComponent>
 
         <FlatList
-          data={[{}, {}, {}, {}, {}, {}]}
+          data={[{}, {}, {}, {}, {}, {}, {}]}
           renderItem={CallCard}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           horizontal
           contentContainerStyle={{ padding: 8 }}
         />
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   callingButton: {
-    flexBasis: 'auto',
+    // flexBasis: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
   },

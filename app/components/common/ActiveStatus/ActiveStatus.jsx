@@ -1,7 +1,7 @@
+import { STATUSES } from '@app/constants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { STATUSES } from '~/app/constants';
 
 const ActiveStatus = ({ status = 'offline' }) => (
   <View
