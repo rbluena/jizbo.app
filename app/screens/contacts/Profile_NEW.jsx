@@ -27,6 +27,10 @@ const Profile = () => {
         </View>
       </View>
 
+      {/* start: Avilability for group calls or schedule for a call */}
+
+      {/* end: Avilability for group calls or schedule for a call */}
+
       <View>
         <TouchableOpacity
           onPress={() => console.log('Calling audio...')}
@@ -54,9 +58,9 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: SCREEN.width * 0.1,
     justifyContent: 'space-between',
-    height: SCREEN.height,
   },
   profileHeader: {
     flexDirection: 'row',

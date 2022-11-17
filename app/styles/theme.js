@@ -25,7 +25,7 @@ export const COLORS = {
   },
   background: PALETTE.lightGray,
   body: PALETTE.dark,
-  border: PALETTE.lightGray,
+  border: PALETTE.gray,
   inputBg: PALETTE.light,
   accent: PALETTE.accent,
 };
