@@ -10,9 +10,10 @@ module.exports = {
     '^@app/components/(.*)$',
     '^@app/styles/(.*)$',
     '^@app/utils/(.*)$',
+    '^@app/constants/(.*)$',
     '^~/assets/(.*)$',
     '^[./]',
   ],
   importOrderSeparation: true,
-  importOrderSortSpecifiers: true,
+  importOrderSortSpecifiers: false,
 };

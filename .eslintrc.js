@@ -18,7 +18,11 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/function-component-definition': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/forbid-prop-types': 'off',
     'no-use-before-define': 'off',
+    'no-restricted-exports': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {

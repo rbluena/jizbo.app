@@ -2,10 +2,13 @@
   "expo": {
     "name": "Jizbo",
     "slug": "jizbo",
+    "description": "Engaging in calls with prominent people while supporting communities.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "privacy": "unlisted",
+    "platforms": ["android", "ios"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,13 +19,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": ["CAMERA", "READ_CONTACTS", "STORAGE", "READ_PHONE_STATE"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
