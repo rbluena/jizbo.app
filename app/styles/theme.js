@@ -32,18 +32,27 @@ const PALETTE = {
 
 export const COLORS = {
   container: {
-    background: PALETTE.lightGray,
+    background: PALETTE.slate[700],
   },
   header: {},
   fonts: {
     heading: PALETTE.darkGray,
-    muted: PALETTE.darkGray,
+    muted: PALETTE.slate[500],
   },
   badge: {
     primary: {
       background: PALETTE.primary[300],
       text: PALETTE.slate[900],
     },
+  },
+  loader: {
+    primary: PALETTE.primary[600],
+    slate: PALETTE.slate[600],
+  },
+  input: {
+    backgroundColor: PALETTE.slate[200],
+    borderColor: PALETTE.slate[400],
+    iconColor: PALETTE.slate[600],
   },
   button: {
     primary: {
