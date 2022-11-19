@@ -6,6 +6,7 @@ import {
   View,
   Image,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 
 import TextComponent from '@app/components/common/Text/Text';
@@ -28,28 +29,57 @@ const Profile = () => {
         {profileImage ? <Image /> : <Text style={styles.profileLetter}>R</Text>}
       </TouchableHighlight>
 
-      {/* <TextComponent align="center">+254 741 709889</TextComponent> */}
-
       <View>
         <TextInput
           placeholder="Name"
           autoFocus
-          style={{ fontSize: FONT_SIZE.xl }}
+          style={{
+            fontSize: FONT_SIZE.xl,
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.input.borderColor,
+            width: '100%',
+            marginVertical: 8,
+            padding: 0,
+          }}
           onChange={text => setUserName(text)}
           value={userName}
         />
         <TextInput
           placeholder="About me"
           onChange={text => setBio(text)}
-          style={{ fontSize: FONT_SIZE.m }}
+          style={{
+            fontSize: FONT_SIZE.l,
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.input.borderColor,
+            marginVertical: 8,
+            width: '100%',
+            padding: 0,
+          }}
           value={bio}
           multiline
-          maxLength={35}
         />
-        <TextComponent align="center">
+        <TextComponent style={{ marginTop: 8 }}>
           This could be your fullname or nickname. This is how people will know
           you from Jizbo.
         </TextComponent>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
+        <TouchableOpacity style={styles.saveButton}>
+          <Text
+            style={{
+              color: 'white',
+              textAlign: 'center',
+              fontSize: 20,
+              padding: 8,
+            }}>
+            Save
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -61,7 +91,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     padding: 0.1 * SCREEN.width,
   },
   profileImageContainer: {
@@ -74,5 +103,11 @@ const styles = StyleSheet.create({
   },
   profileLetter: {
     fontSize: FONT_SIZE.xxxl,
+  },
+  saveButton: {
+    backgroundColor: 'black',
+    marginTop: 32,
+    borderRadius: 8,
+    width: 250,
   },
 });

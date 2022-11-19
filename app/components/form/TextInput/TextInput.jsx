@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.inputBg,
     borderRadius: SPACING.s,
     borderWidth: 1,
-    flex: 1,
+    // TODO: Fix the search input.
+    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: 'white',
@@ -59,5 +60,6 @@ const styles = StyleSheet.create({
   input: {
     padding: SPACING.s,
     fontSize: FONT_SIZE.m,
+    backgroundColor: 'yellow',
   },
 });
