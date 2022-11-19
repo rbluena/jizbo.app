@@ -27,11 +27,12 @@ export default Badge;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.badge.primary.background,
-    padding: 4,
+    padding: 2,
     borderRadius: 4,
     alignSelf: 'flex-start',
   },
   badgeText: {
     fontWeight: 'bold',
+    color: COLORS.badge.primary.text,
   },
 });

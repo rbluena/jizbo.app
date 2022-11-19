@@ -32,7 +32,15 @@ const PALETTE = {
 
 export const COLORS = {
   container: {
-    background: PALETTE.slate[700],
+    background: PALETTE.slate[100],
+    borderColor: PALETTE.slate[200],
+  },
+  avatar: {
+    background: PALETTE.slate[300],
+  },
+  status: {
+    online: PALETTE.primary[300],
+    offline: PALETTE.slate[300],
   },
   header: {},
   fonts: {
@@ -41,7 +49,7 @@ export const COLORS = {
   },
   badge: {
     primary: {
-      background: PALETTE.primary[300],
+      background: PALETTE.slate[300],
       text: PALETTE.slate[900],
     },
   },

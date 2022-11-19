@@ -1,58 +1,21 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  FlatList,
   StyleSheet,
   View,
   Text,
   ActivityIndicator,
-  TouchableOpacity,
+  VirtualizedList,
 } from 'react-native';
-import Avatar from '~/app/components/common/Avatar';
-import TextComponent from '~/app/components/common/Text/Text';
+import ContactCard from '~/app/components/common/ContactCard';
 import TextInput from '~/app/components/form/TextInput';
 import { SCREEN } from '~/app/constants';
 import { COLORS } from '~/app/styles/theme';
 
-const ContactCard = () => {
-  return (
-    <View style={styles.contactCard}>
-      <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={{ marginRight: 8 }}>
-          <Avatar size="s" uri="https://reactnative.dev/img/tiny_logo.png" />
-        </View>
+const DATA = [{}, {}, {}, {}];
 
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <TextComponent fontSize="l" style={{ fontWeight: 'bold' }}>
-              Nas{' '}
-            </TextComponent>
-            <MaterialIcons name="verified" size={20} color="black" />
-          </View>
-
-          <TextComponent fontSize="m" variant="muted">
-            Software Engineer
-          </TextComponent>
-        </View>
-      </TouchableOpacity>
-
-      {/* start: Accordion */}
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity>
-          <MaterialIcons name="call" size={32} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <MaterialIcons name="videocam" size={32} />
-        </TouchableOpacity>
-      </View>
-      {/* end: Accordion */}
-    </View>
-  );
-};
+const getItem = () => ({
+  id: Math.random().toString(12).substring(0),
+});
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -94,14 +57,13 @@ const Search = () => {
       {/* end: Search result */}
 
       {/* start: Popular in your country */}
-      <ContactCard />
-      <ContactCard />
-      <ContactCard />
-      <ContactCard />
-      <ContactCard />
-      <ContactCard />
-      <ContactCard />
-      {/* <FlatList /> */}
+      <VirtualizedList
+        data={DATA}
+        getItemCount={() => 10}
+        getItem={getItem}
+        keyExtractor={item => item.key}
+        renderItem={item => <ContactCard item={item} />}
+      />
       {/* end: Popular in your country */}
     </View>
   );
@@ -112,7 +74,8 @@ export default Search;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: SCREEN.width * 0.1,
+    paddingHorizontal: SCREEN.width * 0.05,
+    backgroundColor: COLORS.container.background,
   },
   searchInputWrapper: {
     flexDirection: 'row',
@@ -122,8 +85,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.input.borderColor,
     backgroundColor: COLORS.input.backgroundColor,
-  },
-  contactCard: {
-    paddingVertical: 4,
   },
 });

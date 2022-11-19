@@ -1,54 +1,66 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableHighlight,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import ActiveStatus from '@app/components/common/ActiveStatus';
 
 import { COLORS, FONT_SIZE } from '@app/styles/theme';
 
-const Avatar = ({ uri, isEditable, loadProfileImage, status, size = 'm' }) => {
-  const style = { container: { width: 80, height: 80, borderRadius: 50 } };
-
-  if (size === 's') {
-    style.container.width = 50;
-    style.container.height = 50;
-    style.container.borderRadius = 100;
-  }
-
-  if (size === 'l') {
-    style.container.width = 110;
-    style.container.height = 110;
-    style.container.borderRadius = 100;
-  }
+const Avatar = ({
+  uri,
+  isEditable,
+  loadProfileImage,
+  onlineStatus,
+  size = 'm',
+  initial,
+}) => {
+  const largeStyle = { width: 110, height: 110, borderRadius: 30 };
 
   if (isEditable) {
     return (
-      <TouchableHighlight
-        style={[styles.container, style.container]}
+      <TouchableOpacity
+        style={[styles.container, size === 'l' ? largeStyle : {}]}
         onPress={loadProfileImage}>
-        <ActiveStatus status={status} />
-        {uri ? (
-          <Image style={styles.img} source={{ uri }} />
+        <ActiveStatus
+          onlineStatus={onlineStatus}
+          style={[styles.onlineStatus]}
+        />
+
+        {uri?.length ? (
+          <Image
+            style={[styles.img, size === 'l' ? largeStyle : {}]}
+            source={{ uri }}
+          />
         ) : (
-          <Text style={styles.profileLetter}>R</Text>
+          <Text
+            style={[
+              styles.profileLetter,
+              size === 'l' ? { fontSize: FONT_SIZE.xxxl } : {},
+            ]}>
+            {initial[0]?.toUpperCase()}
+          </Text>
         )}
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 
   return (
-    <View style={[styles.container, style.container]}>
-      <ActiveStatus status={status} />
-      {uri ? (
-        <Image style={styles.img} source={{ uri }} />
+    <View style={[styles.container, size === 'l' ? largeStyle : {}]}>
+      <ActiveStatus onlineStatus={onlineStatus} style={[styles.onlineStatus]} />
+
+      {uri?.length ? (
+        <Image
+          style={[styles.img, size === 'l' ? largeStyle : {}]}
+          source={{ uri }}
+        />
       ) : (
-        <Text style={styles.profileLetter}>R</Text>
+        <Text
+          style={[
+            styles.profileLetter,
+            size === 'l' ? { fontSize: FONT_SIZE.xxxl } : {},
+          ]}>
+          {initial?.toUpperCase()}
+        </Text>
       )}
     </View>
   );
@@ -56,30 +68,48 @@ const Avatar = ({ uri, isEditable, loadProfileImage, status, size = 'm' }) => {
 
 Avatar.defaultProps = {
   uri: '',
+  size: 'm',
   isEditable: false,
   loadProfileImage: () => {},
-  status: 'offline',
+  onlineStatus: 'offline',
+  initial: '',
 };
 
 Avatar.propTypes = {
   uri: PropTypes.string,
+  size: PropTypes.string,
   isEditable: PropTypes.bool,
   loadProfileImage: PropTypes.func,
-  status: PropTypes.string,
+  onlineStatus: PropTypes.string,
+  initial: PropTypes.string,
 };
 
 export default Avatar;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.container.background,
+    backgroundColor: COLORS.avatar.background,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 56,
+    height: 56,
+    borderRadius: 15,
+    marginRight: 8,
   },
   profileLetter: {
-    fontSize: FONT_SIZE.xxxl,
+    fontSize: FONT_SIZE.xl,
+    fontWeight: 'bold',
   },
   img: {
-    ...StyleSheet.absoluteFill,
+    width: 56,
+    height: 56,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: COLORS.container.borderColor,
+  },
+  onlineStatus: {
+    position: 'absolute',
+    right: -1,
+    bottom: -1,
   },
 });

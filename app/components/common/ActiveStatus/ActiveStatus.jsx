@@ -3,18 +3,24 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const ActiveStatus = ({ status = 'offline' }) => (
+const ActiveStatus = ({ onlineStatus = 'offline', style = {} }) => (
   <View
-    style={[styles.container, { backgroundColor: STATUSES[status]?.color }]}
+    style={[
+      styles.container,
+      { backgroundColor: STATUSES[onlineStatus]?.color },
+      style,
+    ]}
   />
 );
 
 ActiveStatus.defaultProps = {
-  status: 'offline',
+  onlineStatus: 'offline',
+  style: {},
 };
 
 ActiveStatus.propTypes = {
-  status: PropTypes.oneOf(['online', 'offline']),
+  style: PropTypes.object,
+  onlineStatus: PropTypes.oneOf(['online', 'offline']),
 };
 
 export default ActiveStatus;
@@ -23,12 +29,10 @@ const styles = StyleSheet.create({
   container: {
     width: 16,
     height: 16,
-    borderRadius: 50,
+    borderRadius: 20,
     elevation: 2,
     borderColor: 'grey',
     borderWidth: 1,
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
+    zIndex: 10,
   },
 });

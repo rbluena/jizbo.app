@@ -7,12 +7,17 @@ import Badge from '~/app/components/common/Badge';
 import Avatar from '@app/components/common/Avatar';
 import TextComponent from '@app/components/common/Text';
 
-import { SPACING } from '@app/styles/theme';
+import { SPACING, COLORS } from '@app/styles/theme';
 
 const Profile = () => (
   <View style={styles.container}>
     <View style={styles.profileHeader}>
-      <Avatar onlineStatus="online" />
+      <Avatar
+        onlineStatus="online"
+        size="l"
+        isEditable
+        uri="https://i.pravatar.cc/150?img=49"
+      />
 
       <View style={{ paddingLeft: SPACING.s }}>
         <View style={styles.userTitle}>
@@ -80,7 +85,9 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: SCREEN.width * 0.1,
+    paddingHorizontal: SCREEN.width * 0.05,
+    paddingBottom: SCREEN.width * 0.1,
+    backgroundColor: COLORS.container.background,
     justifyContent: 'space-between',
   },
   profileHeader: {
