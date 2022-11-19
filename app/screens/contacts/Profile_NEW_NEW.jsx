@@ -16,6 +16,7 @@ const Profile = () => (
         onlineStatus="online"
         size="l"
         isEditable
+        rounded={false}
         uri="https://i.pravatar.cc/150?img=49"
       />
 

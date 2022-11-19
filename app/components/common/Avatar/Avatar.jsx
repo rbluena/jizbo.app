@@ -12,9 +12,14 @@ const Avatar = ({
   loadProfileImage,
   onlineStatus,
   size = 'm',
+  rounded = false,
   initial,
 }) => {
-  const largeStyle = { width: 110, height: 110, borderRadius: 30 };
+  const largeStyle = {
+    width: 110,
+    height: 110,
+    borderRadius: rounded ? 80 : 30,
+  };
 
   if (isEditable) {
     return (
@@ -45,12 +50,19 @@ const Avatar = ({
   }
 
   return (
-    <View style={[styles.container, size === 'l' ? largeStyle : {}]}>
+    <View
+      style={[
+        styles.container,
+        size === 'l' ? largeStyle : { borderRadius: rounded ? 30 : 15 },
+      ]}>
       <ActiveStatus onlineStatus={onlineStatus} style={[styles.onlineStatus]} />
 
       {uri?.length ? (
         <Image
-          style={[styles.img, size === 'l' ? largeStyle : {}]}
+          style={[
+            styles.img,
+            size === 'l' ? largeStyle : { borderRadius: rounded ? 30 : 15 },
+          ]}
           source={{ uri }}
         />
       ) : (
@@ -72,6 +84,7 @@ Avatar.defaultProps = {
   isEditable: false,
   loadProfileImage: () => {},
   onlineStatus: 'offline',
+  rounded: false,
   initial: '',
 };
 
@@ -82,6 +95,7 @@ Avatar.propTypes = {
   loadProfileImage: PropTypes.func,
   onlineStatus: PropTypes.string,
   initial: PropTypes.string,
+  rounded: PropTypes.bool,
 };
 
 export default Avatar;

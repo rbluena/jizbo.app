@@ -18,6 +18,7 @@ const TextInput = ({
           name={iconName}
           size={24}
           color={COLORS.input.iconColor}
+          style={{ marginLeft: 16 }}
         />
       ) : null}
       <Input
@@ -60,6 +61,6 @@ const styles = StyleSheet.create({
   input: {
     padding: SPACING.s,
     fontSize: FONT_SIZE.m,
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
   },
 });
