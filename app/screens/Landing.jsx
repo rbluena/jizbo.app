@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     marginHorizontal: SCREEN.width * 0.1,
-    borderRadius: 16,
+    borderRadius: 32,
     marginBottom: 16,
   },
 });
