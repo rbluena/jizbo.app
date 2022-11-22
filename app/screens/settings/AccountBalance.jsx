@@ -30,15 +30,13 @@ const AccountBalance = () => {
           KES 5K
         </TextComponent>
 
-        <TouchableOpacity>
-          <TextComponent>Redeem</TextComponent>
+        <TouchableOpacity style={styles.button}>
+          <TextComponent align="center" style={{ fontWeight: 'bold' }}>
+            Redeem
+          </TextComponent>
         </TouchableOpacity>
 
-        <TextComponent
-          align="center"
-          variant="muted"
-          fontSize="s"
-          style={{ marginTop: 4 }}>
+        <TextComponent align="center" variant="muted" style={{ marginTop: 4 }}>
           This balance is used only for outgoing calls. It is non-refundable.
         </TextComponent>
       </View>
@@ -61,24 +59,18 @@ const AccountBalance = () => {
         </TextComponent>
 
         <TouchableOpacity
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 16,
-            padding: 8,
-            elevation: 2,
-          }}>
-          <TextComponent align="center" fontSize="l">
+          style={[
+            styles.button,
+            { backgroundColor: COLORS.button.primary.backgroundColor },
+          ]}>
+          <TextComponent align="center" style={{ fontWeight: 'bold' }}>
             Request payout
           </TextComponent>
         </TouchableOpacity>
 
-        <TextComponent
-          align="center"
-          fontSize="s"
-          style={{ marginTop: 4, color: 'white' }}>
+        <TextComponent align="center" style={{ marginTop: 4, color: 'white' }}>
           This is an income generated from incoming calls. Payout is processed
-          when fund is exceeding USD 100 and is done in every end of the month
-          or when you choose to delete your account.
+          when fund is exceeding USD 100.
         </TextComponent>
       </View>
       {/* end: */}
@@ -105,5 +97,12 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     borderColor: COLORS.container.borderColor,
     elevation: 4,
+  },
+  button: {
+    borderRadius: 16,
+    padding: 8,
+    elevation: 1,
+    backgroundColor: COLORS.button.primary.backgroundColor,
+    marginVertical: 16,
   },
 });

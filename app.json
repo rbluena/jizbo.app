@@ -8,7 +8,10 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "privacy": "unlisted",
-    "platforms": ["android", "ios"],
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,7 +20,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false
     },
@@ -26,7 +31,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": ["CAMERA", "READ_CONTACTS", "STORAGE", "READ_PHONE_STATE"]
+      "permissions": [
+        "CAMERA",
+        "READ_CONTACTS",
+        "STORAGE",
+        "READ_PHONE_STATE"
+      ],
+      "package": "com.rbluena.jizbo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
