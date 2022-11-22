@@ -1,6 +1,7 @@
 import { SCREEN } from '@app/constants';
 import React from 'react';
 import {
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -13,40 +14,52 @@ import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
 
-import { requestPermissions } from '../utils';
+import {
+  requestMicrophonePermission,
+  requestCameraPermission,
+} from '../lib/permissions';
 
 const Landing = () => {
   const nextCallback = () => {
-    try {
-      requestPermissions();
-    } catch (error) {
-      console.log(error);
-    }
+    requestMicrophonePermission()
+      .then(requestCameraPermission)
+      .then(() => {
+        // Go the next page
+      })
+      .catch(error =>
+        Alert.alert('Permission', 'All permissions are granted!'),
+      );
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Jizbo</Text>
-        <TextComponent size="m" style={{ textAlign: 'center' }}>
-          Engaging in calls with prominents people while supporting your
-          communities.
+        <TextComponent variant="muted" align="center">
+          Let people pay your time to have conversation with you.
         </TextComponent>
       </View>
       <View style={styles.footer}>
+        <View style={{}}>
+          <Button
+            variant="primary"
+            label="Continue"
+            onPress={nextCallback}
+            style={{}}
+          />
+        </View>
+
         <TextComponent variant="muted">
           By tapping continue button, you agree and accept our
         </TextComponent>
-        <TouchableOpacity>
-          <TextComponent
-            variant="muted"
-            onPress={() => Linking.openURL('https://google.com')}>
-            Terms of Service & Privacy Policy
+        <TouchableOpacity
+          onPress={() =>
+            Linking.openURL('https://jizbo.vercel.app/terms-and-policy')
+          }>
+          <TextComponent style={{ color: 'blue' }}>
+            Terms & Privacy Policy
           </TextComponent>
         </TouchableOpacity>
-        <View>
-          <Button variant="primary" label="Continue" onPress={nextCallback} />
-        </View>
       </View>
     </View>
   );
@@ -68,8 +81,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SCREEN.width * 0.1,
   },
   headerTitle: {
-    fontSize: theme.FONT_SIZE.xl,
-    color: theme.COLORS.fonts.heading,
+    fontSize: theme.FONT_SIZE.xxxl,
+    color: theme.COLORS.header.title,
+    marginBottom: 8,
+    fontWeight: 'bold',
   },
   footer: {
     width: SCREEN.width,

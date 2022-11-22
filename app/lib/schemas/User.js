@@ -15,7 +15,7 @@ export default class UserSchema extends Realm.Object {
       bio: 'string',
       isOnline: { type: 'bool', default: () => true },
       isProminent: { type: 'bool', default: () => false },
-      settings: {},
+      settings: 'Settings[]',
       balances: {
         topUpBalance: { type: 'number', default: () => 0 },
         revenue: { type: 'number', deafult: () => 0 },

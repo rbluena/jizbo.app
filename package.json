@@ -10,13 +10,14 @@
   "dependencies": {
     "@realm/react": "^0.4.1",
     "expo": "~47.0.7",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "prop-types": "^15.8.1",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-permissions": "^3.6.1",
     "react-native-phone-input": "^1.3.5",
-    "realm": "^11.2.0",
-    "expo-splash-screen": "~0.17.5"
+    "realm": "^11.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

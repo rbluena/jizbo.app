@@ -42,7 +42,10 @@ export const COLORS = {
     online: PALETTE.primary[300],
     offline: PALETTE.slate[300],
   },
-  header: {},
+  header: {
+    title: PALETTE.slate[700],
+    subheading: PALETTE.slate[600],
+  },
   fonts: {
     heading: PALETTE.darkGray,
     muted: PALETTE.slate[500],
@@ -65,7 +68,7 @@ export const COLORS = {
   button: {
     primary: {
       backgroundColor: PALETTE.gray,
-      textColor: PALETTE.darkGray,
+      color: PALETTE.darkGray,
     },
   },
   background: PALETTE.lightGray,
