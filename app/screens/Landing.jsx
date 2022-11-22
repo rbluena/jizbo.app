@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 
-import Button from '@app/components/common/Button';
 import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
@@ -20,14 +19,14 @@ import {
 } from '../lib/permissions';
 
 const Landing = () => {
-  const nextCallback = () => {
+  const nextPageHandler = () => {
     requestMicrophonePermission()
       .then(requestCameraPermission)
       .then(() => {
         // Go the next page
       })
-      .catch(error =>
-        Alert.alert('Permission', 'All permissions are granted!'),
+      .catch(() =>
+        Alert.alert('Permission', 'All permission should be granted!'),
       );
   };
 
@@ -36,18 +35,15 @@ const Landing = () => {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Jizbo</Text>
         <TextComponent variant="muted" align="center">
-          Let people pay your time to have conversation with you.
+          Let people pay your minutes to have conversation with you.
         </TextComponent>
       </View>
       <View style={styles.footer}>
-        <View style={{}}>
-          <Button
-            variant="primary"
-            label="Continue"
-            onPress={nextCallback}
-            style={{}}
-          />
-        </View>
+        <TouchableOpacity style={styles.blockButton} onPress={nextPageHandler}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
+            Continue
+          </Text>
+        </TouchableOpacity>
 
         <TextComponent variant="muted">
           By tapping continue button, you agree and accept our
@@ -92,5 +88,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingBottom: SCREEN.height * 0.08,
+  },
+  blockButton: {
+    backgroundColor: 'blue',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 16,
+    marginHorizontal: SCREEN.width * 0.1,
+    borderRadius: 16,
+    marginBottom: 16,
   },
 });
