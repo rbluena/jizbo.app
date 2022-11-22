@@ -44,7 +44,7 @@ export const COLORS = {
   },
   header: {
     title: PALETTE.slate[700],
-    subheading: PALETTE.slate[600],
+    subheading: PALETTE.slate[500],
   },
   fonts: {
     heading: PALETTE.darkGray,

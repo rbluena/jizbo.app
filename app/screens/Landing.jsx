@@ -1,4 +1,5 @@
 import { SCREEN } from '@app/constants';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   Alert,
@@ -8,22 +9,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  requestMicrophonePermission,
+  requestCameraPermission,
+} from '~/app/lib/permissions';
 
 import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
 
-import {
-  requestMicrophonePermission,
-  requestCameraPermission,
-} from '../lib/permissions';
-
 const Landing = () => {
+  const navigation = useNavigation();
+
   const nextPageHandler = () => {
     requestMicrophonePermission()
       .then(requestCameraPermission)
       .then(() => {
-        // Go the next page
+        navigation.navigate('Register');
       })
       .catch(() =>
         Alert.alert('Permission', 'All permission should be granted!'),
@@ -38,6 +40,7 @@ const Landing = () => {
           Let people pay your minutes to have conversation with you.
         </TextComponent>
       </View>
+
       <View style={styles.footer}>
         <TouchableOpacity style={styles.blockButton} onPress={nextPageHandler}>
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
@@ -56,6 +59,12 @@ const Landing = () => {
             Terms & Privacy Policy
           </TextComponent>
         </TouchableOpacity>
+
+        <TextComponent
+          variant="muted"
+          style={{ fontWeight: 'bold', marginTop: 16, fontSize: 18 }}>
+          Busara Company
+        </TextComponent>
       </View>
     </View>
   );

@@ -8,9 +8,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-
-import TextComponent from '@app/components/common/Text/Text';
-import TextInput from '@app/components/form/TextInput/TextInput';
+import ScreenHeader from '~/app/components/common/ScreenHeader';
+import TextComponent from '~/app/components/common/Text/Text';
+import TextInput from '~/app/components/form/TextInput/TextInput';
 
 import { COLORS, FONT_SIZE } from '@app/styles/theme';
 
@@ -23,6 +23,10 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
+      <ScreenHeader
+        textHeading="Account"
+        textSubheading="Provide your public information"
+      />
       <TouchableHighlight
         style={styles.profileImageContainer}
         onPress={loadProfileImage}>

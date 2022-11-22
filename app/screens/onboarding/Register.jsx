@@ -1,16 +1,28 @@
 import { SCREEN } from '@app/constants';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Alert,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
+import ScreenHeader from '~/app/components/common/ScreenHeader/ScreenHeader';
 
-import Button from '@app/components/common/Button';
 import TextComponent from '@app/components/common/Text';
 import PhoneInput from '@app/components/form/PhoneInput';
 
 import * as theme from '@app/styles/theme';
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showVerificationInput, setShowVerificationInput] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const phoneInput = useRef(null);
+
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
     if (!phoneInput.current?.isValidNumber(phoneNumber)) {
@@ -18,19 +30,26 @@ const Register = () => {
       return;
     }
 
+    setIsLoading(true);
+
     Alert.alert(
       'Confirm the phone',
       `A verification code will be sent to: ${phoneNumber}`,
       [
         {
           text: 'Edit number',
-          onPress: () => false,
+          onPress: () => {
+            setIsLoading(false);
+          },
           style: 'cancel',
         },
         {
           text: 'OK',
-          onPress: async () =>
-            console.log('Now sending the phone number outside!'),
+          onPress: async () => {
+            setIsLoading(false);
+            setShowVerificationInput(true);
+            navigation.navigate('Account');
+          },
         },
       ],
     );
@@ -39,25 +58,42 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <View style={styles.header}>
-          <TextComponent align="center">Get started</TextComponent>
-          <TextComponent align="center">
-            Your phone number will never be seen or shared in public even during
-            the call. We only need it for verification purpose.
-          </TextComponent>
-        </View>
+        <ScreenHeader
+          textHeading="Get started"
+          textSubheading="Register your phone"
+        />
 
-        <View>
+        <View style={{ marginTop: 32 }}>
           <PhoneInput
             defaultValue={phoneNumber}
             onChange={text => setPhoneNumber(text)}
             ref={phoneInput}
           />
+
+          <TextComponent
+            align="center"
+            variant="muted"
+            style={{ marginTop: 8 }}>
+            Your phone number will never be seen or shared on public. We need to
+            verify you.
+          </TextComponent>
         </View>
       </View>
 
       <View style={styles.footer}>
-        <Button label="Next" variant="primary" onPress={handleSubmit} />
+        <TouchableOpacity
+          style={[styles.blockButton]}
+          onPress={handleSubmit}
+          // disabled
+        >
+          {isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
+              {showVerificationInput ? 'Verify' : 'Get verification code'}
+            </Text>
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -70,13 +106,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.COLORS.container.background,
     alignItems: 'center',
-    padding: SCREEN.width * 0.1,
+    justifyContent: 'space-between',
+    paddingHorizontal: SCREEN.width * 0.1,
   },
-  topContainer: {
-    // height: SCREEN.height * 0.7,
+  topContainer: {},
+  header: {},
+  footer: {
+    width: SCREEN.width,
+    justifyContent: 'flex-end',
   },
-  header: {
-    // flex: 0.15,
+  blockButton: {
+    backgroundColor: 'blue',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 16,
+    marginHorizontal: SCREEN.width * 0.1,
+    borderRadius: 32,
+    marginBottom: 16,
   },
-  footer: {},
 });
