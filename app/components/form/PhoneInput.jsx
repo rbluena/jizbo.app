@@ -46,13 +46,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     borderColor: COLORS.input.borderColor,
     borderRadius: 4,
-    shadowColor: 'ragba(0, 0, 0, 0.4)',
-    shadowOffset: {
-      width: 1,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.21,
     elevation: 2,
   },
   textStyle: {
