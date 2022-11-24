@@ -21,7 +21,7 @@ const PALETTE = {
     600: '#0d9488',
     700: '#0f766e',
   },
-  light: '#ffffff',
+  white: '#ffffff',
   lightGray: '#D8D7DB',
   gray: '#C3BEC0',
   darkGray: '#5C5E5B',
@@ -67,9 +67,13 @@ export const COLORS = {
     iconColor: PALETTE.slate[600],
   },
   button: {
+    slate: {
+      background: PALETTE.slate[800],
+      disabledBackground: PALETTE.slate[400],
+      color: PALETTE.white,
+    },
     primary: {
-      backgroundColor: PALETTE.gray,
-      color: PALETTE.darkGray,
+      background: PALETTE.primary[500],
     },
   },
   background: PALETTE.lightGray,

@@ -212,10 +212,8 @@ const styles = StyleSheet.create({
   header: {},
   blockButton: {
     backgroundColor: 'blue',
-    // alignSelf: 'stretch',
     alignItems: 'center',
     padding: 16,
-    // marginHorizontal: SCREEN.width * 0.1,
     borderRadius: 32,
     marginBottom: 16,
   },

@@ -19,7 +19,7 @@ ActiveStatus.defaultProps = {
 };
 
 ActiveStatus.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.any,
   onlineStatus: PropTypes.oneOf(['online', 'offline']),
 };
 
