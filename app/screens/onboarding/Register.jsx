@@ -1,37 +1,95 @@
 import { SCREEN } from '@app/constants';
+import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
   Alert,
-  TouchableOpacity,
   Text,
   ActivityIndicator,
+  ToastAndroid,
+  TextInput,
+  Pressable,
 } from 'react-native';
 import ScreenHeader from '~/app/components/common/ScreenHeader/ScreenHeader';
 
 import TextComponent from '@app/components/common/Text';
-import PhoneInput from '@app/components/form/PhoneInput';
+import { PhoneInput } from '@app/components/form';
 
 import * as theme from '@app/styles/theme';
+
+const toastMessage = message =>
+  ToastAndroid.showWithGravityAndOffset(
+    message,
+    ToastAndroid.LONG,
+    ToastAndroid.BOTTOM,
+    0,
+    150,
+  );
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationInput, setShowVerificationInput] = useState(false);
+  const [confirm, setConfirm] = useState(null);
+  const [code, setCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState(null);
   const phoneInput = useRef(null);
-
   const navigation = useNavigation();
 
+  /**
+   *
+   */
+  const signInWithPhoneNumber = () => {
+    auth()
+      .signInWithPhoneNumber(phoneNumber)
+      .then(confirmation => {
+        setConfirm(confirmation);
+        setShowVerificationInput(true);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setConfirm(null);
+        setShowVerificationInput(false);
+        setIsLoading(false);
+      });
+  };
+
+  /**
+   *
+   * @returns void
+   */
   const handleSubmit = () => {
-    if (!phoneInput.current?.isValidNumber(phoneNumber)) {
-      Alert.alert('Error', 'The phone number entered is not valid!');
+    setIsLoading(true);
+
+    //  Verifying the code
+    if (showVerificationInput) {
+      if (code.length <= 2) {
+        toastMessage('Please enter verification code from the message!');
+        setIsLoading(false);
+        return;
+      }
+
+      confirm
+        ?.confirm(code)
+        .then(() => {
+          setIsLoading(false);
+          navigation.navigate('Account');
+        })
+        .catch(() => {
+          toastMessage('Invalid verification code, please press try again!');
+          setIsLoading(false);
+        });
       return;
     }
 
-    setIsLoading(true);
+    if (!phoneInput.current?.isValidNumber(phoneNumber)) {
+      Alert.alert('Error', 'The phone number entered is not valid!');
+      setIsLoading(false);
+      return;
+    }
 
+    //
     Alert.alert(
       'Confirm the phone',
       `A verification code will be sent to: ${phoneNumber}`,
@@ -45,14 +103,22 @@ const Register = () => {
         },
         {
           text: 'OK',
-          onPress: async () => {
-            setIsLoading(false);
-            setShowVerificationInput(true);
-            navigation.navigate('Account');
+          onPress: () => {
+            signInWithPhoneNumber();
           },
         },
       ],
     );
+  };
+
+  /**
+   *
+   */
+  const resetVerification = () => {
+    setCode('');
+    setConfirm(null);
+    setShowVerificationInput(false);
+    setIsLoading(false);
   };
 
   return (
@@ -64,28 +130,62 @@ const Register = () => {
         />
 
         <View style={{ marginTop: 32 }}>
-          <PhoneInput
-            defaultValue={phoneNumber}
-            onChange={text => setPhoneNumber(text)}
-            ref={phoneInput}
-          />
-
-          <TextComponent
-            align="center"
-            variant="muted"
-            style={{ marginTop: 8 }}>
-            Your phone number will never be seen or shared on public. We need to
-            verify you.
-          </TextComponent>
+          {!showVerificationInput ? (
+            <>
+              <PhoneInput
+                defaultValue={phoneNumber}
+                onChange={text => setPhoneNumber(text)}
+                ref={phoneInput}
+              />
+              <TextComponent
+                align="center"
+                variant="muted"
+                style={{ marginTop: 8 }}>
+                Your phone number will never be seen or shared on public. We
+                need to verify you.
+              </TextComponent>
+            </>
+          ) : (
+            <View style={{ alignItems: 'center' }}>
+              <TextInput
+                placeholder="Enter code"
+                style={{
+                  marginTop: 8,
+                  padding: 8,
+                  backgroundColor: theme.COLORS.input.backgroundColor,
+                  borderColor: theme.COLORS.input.borderColor,
+                  textAlign: 'center',
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  elevation: 2,
+                  borderRadius: 4,
+                  width: 200,
+                }}
+                value={code}
+                onChangeText={text => setCode(text)}
+              />
+              <Pressable onPress={resetVerification} style={{ padding: 16 }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: 'blue',
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    textDecorationColor: 'underline',
+                  }}>
+                  Try again
+                </Text>
+              </Pressable>
+            </View>
+          )}
         </View>
       </View>
 
-      <View style={styles.footer}>
-        <TouchableOpacity
+      <View>
+        <Pressable
           style={[styles.blockButton]}
           onPress={handleSubmit}
-          // disabled
-        >
+          disabled={isLoading}>
           {isLoading ? (
             <ActivityIndicator color="white" />
           ) : (
@@ -93,7 +193,7 @@ const Register = () => {
               {showVerificationInput ? 'Verify' : 'Get verification code'}
             </Text>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -105,22 +205,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.COLORS.container.background,
-    alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: SCREEN.width * 0.1,
   },
   topContainer: {},
   header: {},
-  footer: {
-    width: SCREEN.width,
-    justifyContent: 'flex-end',
-  },
   blockButton: {
     backgroundColor: 'blue',
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
     alignItems: 'center',
     padding: 16,
-    marginHorizontal: SCREEN.width * 0.1,
+    // marginHorizontal: SCREEN.width * 0.1,
     borderRadius: 32,
     marginBottom: 16,
   },

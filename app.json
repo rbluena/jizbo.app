@@ -2,16 +2,13 @@
   "expo": {
     "name": "Jizbo",
     "slug": "jizbo",
-    "description": "Engaging in calls with prominent people while supporting communities.",
+    "description": "Time is money, so is yours.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "privacy": "unlisted",
-    "platforms": [
-      "android",
-      "ios"
-    ],
+    "platforms": ["android", "ios"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -20,9 +17,8 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"],
     "ios": {
       "supportsTablet": false
     },
@@ -31,12 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": [
-        "CAMERA",
-        "READ_CONTACTS",
-        "STORAGE",
-        "READ_PHONE_STATE"
-      ],
+      "permissions": ["CAMERA", "READ_CONTACTS", "STORAGE", "READ_PHONE_STATE"],
       "package": "com.rbluena.jizbo"
     },
     "web": {

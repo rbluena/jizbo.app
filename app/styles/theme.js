@@ -36,7 +36,8 @@ export const COLORS = {
     borderColor: PALETTE.slate[200],
   },
   avatar: {
-    background: PALETTE.slate[300],
+    background: PALETTE.slate[800],
+    textColor: PALETTE.slate[300],
   },
   status: {
     online: PALETTE.primary[300],
