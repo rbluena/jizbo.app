@@ -109,9 +109,11 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 15,
     marginRight: 8,
+    marginBottom: 4,
   },
   profileLetter: {
     fontSize: FONT_SIZE.xl,
+    color: COLORS.avatar.textColor,
     fontWeight: 'bold',
   },
   img: {

@@ -27,7 +27,7 @@ export default ScreenHeader;
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingVertical: 32,
+    paddingVertical: 54,
   },
   textHeading: {
     color: COLORS.header.title,

@@ -27,9 +27,9 @@ const Landing = () => {
       .then(() => {
         navigation.navigate('Register');
       })
-      .catch(() =>
-        Alert.alert('Permission', 'All permission should be granted!'),
-      );
+      .catch(() => {
+        Alert.alert('Permission failed', 'All permissions should be granted!');
+      });
   };
 
   return (
