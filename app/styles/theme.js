@@ -21,7 +21,7 @@ const PALETTE = {
     600: '#0d9488',
     700: '#0f766e',
   },
-  light: '#ffffff',
+  white: '#ffffff',
   lightGray: '#D8D7DB',
   gray: '#C3BEC0',
   darkGray: '#5C5E5B',
@@ -36,13 +36,23 @@ export const COLORS = {
     borderColor: PALETTE.slate[200],
   },
   avatar: {
-    background: PALETTE.slate[300],
+    background: PALETTE.slate[800],
+    textColor: PALETTE.slate[300],
   },
   status: {
-    online: PALETTE.primary[300],
-    offline: PALETTE.slate[300],
+    online: {
+      backgroundColor: PALETTE.primary[400],
+      borderColor: PALETTE.primary[500],
+    },
+    offline: {
+      backgroundColor: PALETTE.slate[300],
+      borderColor: PALETTE.slate[400],
+    },
   },
-  header: {},
+  header: {
+    title: PALETTE.slate[700],
+    subheading: PALETTE.slate[500],
+  },
   fonts: {
     heading: PALETTE.darkGray,
     muted: PALETTE.slate[500],
@@ -63,9 +73,13 @@ export const COLORS = {
     iconColor: PALETTE.slate[600],
   },
   button: {
+    slate: {
+      background: PALETTE.slate[800],
+      disabledBackground: PALETTE.slate[400],
+      color: PALETTE.white,
+    },
     primary: {
-      backgroundColor: PALETTE.gray,
-      textColor: PALETTE.darkGray,
+      background: PALETTE.primary[500],
     },
   },
   background: PALETTE.lightGray,

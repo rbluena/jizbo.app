@@ -4,15 +4,15 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 import { COLORS, SPACING } from '@app/styles/theme';
 
-let style = {};
-
-const Button = ({ label, variant = 'default', ...props }) => {
-  if (variant === 'primary') {
-    style = { ...COLORS.button.primary };
-  }
-
+const Button = ({ label, variant = 'default', style = {}, ...props }) => {
   return (
-    <TouchableOpacity style={[styles.container, style]} {...props}>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        variant === 'primary' ? { ...COLORS.button.primary } : {},
+        style,
+      ]}
+      {...props}>
       <Text style={styles.btnLabel}>{label}</Text>
     </TouchableOpacity>
   );
@@ -21,11 +21,13 @@ const Button = ({ label, variant = 'default', ...props }) => {
 Button.defaultProps = {
   label: '',
   variant: 'default',
+  style: {},
 };
 
 Button.propTypes = {
   label: PropTypes.string,
   variant: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default Button;
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
   container: {
     padding: SPACING.s,
     elevation: 1,
-    width: '100%',
   },
 
   btnLabel: {

@@ -7,7 +7,10 @@ const ActiveStatus = ({ onlineStatus = 'offline', style = {} }) => (
   <View
     style={[
       styles.container,
-      { backgroundColor: STATUSES[onlineStatus]?.color },
+      {
+        backgroundColor: STATUSES[onlineStatus]?.backgroundColor,
+        borderColor: STATUSES[onlineStatus]?.borderColor,
+      },
       style,
     ]}
   />
@@ -19,7 +22,7 @@ ActiveStatus.defaultProps = {
 };
 
 ActiveStatus.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.any,
   onlineStatus: PropTypes.oneOf(['online', 'offline']),
 };
 
@@ -27,12 +30,12 @@ export default ActiveStatus;
 
 const styles = StyleSheet.create({
   container: {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     borderRadius: 20,
-    elevation: 2,
+    elevation: 3,
     borderColor: 'grey',
-    borderWidth: 1,
+    borderWidth: 2,
     zIndex: 10,
   },
 });

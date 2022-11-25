@@ -9,6 +9,7 @@ const TextInput = ({
   value,
   onChange,
   iconName = '',
+  style = {},
   ...props
 }) => {
   return (
@@ -22,7 +23,7 @@ const TextInput = ({
         />
       ) : null}
       <Input
-        style={styles.input}
+        style={[styles.input, style]}
         placeholder={placeholder}
         onChangeText={onChange}
         value={value}
@@ -36,6 +37,7 @@ TextInput.defaultProps = {
   iconName: '',
   placeholder: '',
   value: '',
+  style: {},
 };
 
 TextInput.propTypes = {
@@ -43,24 +45,24 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  style: PropTypes.any,
 };
 
 export default TextInput;
 
 const styles = StyleSheet.create({
   wrapper: {
-    // backgroundColor: COLORS.inputBg,
-    borderRadius: SPACING.s,
-    borderWidth: 1,
-    // TODO: Fix the search input.
-    // flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'white',
+    marginTop: 8,
+    padding: 8,
+    backgroundColor: COLORS.input.backgroundColor,
+    borderColor: COLORS.input.borderColor,
+    textAlign: 'center',
+    elevation: 2,
+    borderRadius: 4,
+    // flexDirection: 'row',
+    // alignItems: 'center',
   },
   input: {
-    padding: SPACING.s,
-    fontSize: FONT_SIZE.m,
-    // backgroundColor: 'yellow',
+    fontSize: 18,
   },
 });

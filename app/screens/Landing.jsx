@@ -1,52 +1,70 @@
 import { SCREEN } from '@app/constants';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
+  Alert,
   Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  requestMicrophonePermission,
+  requestCameraPermission,
+} from '~/app/lib/permissions';
 
-import Button from '@app/components/common/Button';
 import TextComponent from '@app/components/common/Text';
 
 import * as theme from '@app/styles/theme';
 
-import { requestPermissions } from '../utils';
-
 const Landing = () => {
-  const nextCallback = () => {
-    try {
-      requestPermissions();
-    } catch (error) {
-      console.log(error);
-    }
+  const navigation = useNavigation();
+
+  const nextPageHandler = () => {
+    requestMicrophonePermission()
+      .then(requestCameraPermission)
+      .then(() => {
+        navigation.navigate('Register');
+      })
+      .catch(() => {
+        Alert.alert('Permission failed', 'All permissions should be granted!');
+      });
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Jizbo</Text>
-        <TextComponent size="m" style={{ textAlign: 'center' }}>
-          Engaging in calls with prominents people while supporting your
-          communities.
+        <TextComponent variant="muted" align="center">
+          Let people pay your minutes to have conversation with you.
         </TextComponent>
       </View>
+
       <View style={styles.footer}>
+        <TouchableOpacity style={styles.blockButton} onPress={nextPageHandler}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
+            Continue
+          </Text>
+        </TouchableOpacity>
+
         <TextComponent variant="muted">
           By tapping continue button, you agree and accept our
         </TextComponent>
-        <TouchableOpacity>
-          <TextComponent
-            variant="muted"
-            onPress={() => Linking.openURL('https://google.com')}>
-            Terms of Service & Privacy Policy
+        <TouchableOpacity
+          onPress={() =>
+            Linking.openURL('https://jizbo.vercel.app/terms-and-policy')
+          }>
+          <TextComponent style={{ color: 'blue' }}>
+            Terms & Privacy Policy
           </TextComponent>
         </TouchableOpacity>
-        <View>
-          <Button variant="primary" label="Continue" onPress={nextCallback} />
-        </View>
+
+        <TextComponent
+          variant="muted"
+          style={{ fontWeight: 'bold', marginTop: 16, fontSize: 18 }}>
+          Busara Company
+        </TextComponent>
       </View>
     </View>
   );
@@ -68,8 +86,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SCREEN.width * 0.1,
   },
   headerTitle: {
-    fontSize: theme.FONT_SIZE.xl,
-    color: theme.COLORS.fonts.heading,
+    fontSize: theme.FONT_SIZE.xxxl,
+    color: theme.COLORS.header.title,
+    marginBottom: 8,
+    fontWeight: 'bold',
   },
   footer: {
     width: SCREEN.width,
@@ -77,5 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingBottom: SCREEN.height * 0.08,
+  },
+  blockButton: {
+    backgroundColor: 'blue',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 16,
+    marginHorizontal: SCREEN.width * 0.1,
+    borderRadius: 32,
+    marginBottom: 16,
   },
 });

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "676475201395",
+    "project_id": "jizbo-app",
+    "storage_bucket": "jizbo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676475201395:android:368b5d9106d687a22e4706",
+        "android_client_info": {
+          "package_name": "com.rbluena.jizbo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676475201395-k1nn81jqvbh0mhi1figdrf4pg58rcsjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rbluena.jizbo",
+            "certificate_hash": "8bb237053678a099eeff11b0c4d1ffda234338d6"
+          }
+        },
+        {
+          "client_id": "676475201395-n23ho5litte4fr7ldjknvl4cl8nphusa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3fVyq_P7HWxr98CNxzpbpRlPTkpCUjqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676475201395-n23ho5litte4fr7ldjknvl4cl8nphusa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
