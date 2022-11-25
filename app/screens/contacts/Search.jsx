@@ -24,7 +24,7 @@ const Search = () => {
   const [isSearching, setIsSearching] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style.wrapper]}>
       <View style={{}}>
         {/* start: Recent calls participated */}
         <View>

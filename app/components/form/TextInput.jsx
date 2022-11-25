@@ -59,6 +59,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     elevation: 2,
     borderRadius: 4,
+    // width: '100%',
+    // alignSelf: 'stretch',
     // flexDirection: 'row',
     // alignItems: 'center',
   },

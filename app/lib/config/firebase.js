@@ -1,6 +1,6 @@
 import firebase from '@react-native-firebase/app';
 
-const credentaials = {
+const credentials = {
   apiKey: 'AIzaSyCYpsOQ7L53avayN5KYagIWo-1FWU8Nbjo',
   authDomain: 'jizbo-app.firebaseapp.com',
   projectId: 'jizbo-app',
@@ -12,7 +12,7 @@ const credentaials = {
 
 const initializeApp = () => {
   if (!firebase.apps.length) {
-    firebase.initializeApp(credentaials).catch(() => {});
+    firebase.initializeApp(credentials).catch(() => {});
   }
 };
 
