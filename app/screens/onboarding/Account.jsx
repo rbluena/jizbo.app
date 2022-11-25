@@ -21,6 +21,7 @@ const Profile = () => {
   const [displayName, setDisplayName] = useState(
     () => currUserRef?.displayName || '',
   );
+  const [occupation, setOccupation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState('');
 
@@ -92,7 +93,7 @@ const Profile = () => {
           textSubheading={bio.length ? bio : 'Add your public information'}
         />
         <Avatar
-          initial={displayName[0]?.toLocaleUpperCase()}
+          initial={displayName[0]?.toUpperCase()}
           size="l"
           loadProfileImage={loadProfileImage}
           uri={profileImage || currUserRef?.photoURL}
@@ -102,13 +103,19 @@ const Profile = () => {
 
       <View>
         <TextInput
-          placeholder="Name"
+          placeholder="Name (required)"
           autoFocus
           onChange={text => setDisplayName(text)}
           value={displayName}
         />
         <TextInput
-          placeholder="About me"
+          placeholder="Occupation"
+          autoFocus
+          onChange={text => setOccupation(text)}
+          value={occupation}
+        />
+        <TextInput
+          placeholder="Bio"
           onChange={text => setBio(text)}
           style={{ height: 40, paddingBottom: 16 }}
           value={bio}
@@ -117,7 +124,7 @@ const Profile = () => {
           maxLength={150}
         />
 
-        <TextComponent variant="muted" style={{ marginTop: 8 }}>
+        <TextComponent align="center" variant="muted" style={{ marginTop: 8 }}>
           This could be your fullname or nickname. This is how people will know
           you from Jizbo.
         </TextComponent>

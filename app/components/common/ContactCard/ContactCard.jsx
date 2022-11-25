@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Avatar from '~/app/components/common/Avatar';
 import Badge from '~/app/components/common/Badge';
 import TextComponent from '~/app/components/common/Text';
@@ -9,7 +9,7 @@ import { COLORS } from '~/app/styles/theme';
 const ContactCard = () => {
   return (
     <View style={styles.contactCard}>
-      <TouchableOpacity style={styles.wrapper}>
+      <View style={styles.wrapper}>
         <Avatar onlineStatus="offline" initial="N" />
 
         <View>
@@ -32,7 +32,7 @@ const ContactCard = () => {
         <View style={styles.arrow}>
           <MaterialIcons size={28} name="chevron-right" />
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -41,8 +41,9 @@ export default ContactCard;
 
 const styles = StyleSheet.create({
   contactCard: {
-    padding: 8,
-    marginVertical: 8,
+    padding: 16,
+    // paddingVertical: 16,
+    // marginVertical: 8,
     borderRadius: 4,
     borderBottomColor: COLORS.container.borderColor,
     borderBottomWidth: 1,
