@@ -8,25 +8,16 @@ import {
   Alert,
   Text,
   ActivityIndicator,
-  ToastAndroid,
   TextInput,
   Pressable,
 } from 'react-native';
 import ScreenHeader from '~/app/components/common/ScreenHeader/ScreenHeader';
+import { toastMessage } from '~/app/utils/message';
 
 import TextComponent from '@app/components/common/Text';
 import { PhoneInput } from '@app/components/form';
 
 import * as theme from '@app/styles/theme';
-
-const toastMessage = message =>
-  ToastAndroid.showWithGravityAndOffset(
-    message,
-    ToastAndroid.LONG,
-    ToastAndroid.BOTTOM,
-    0,
-    150,
-  );
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +53,8 @@ const Register = () => {
   const handleSubmit = () => {
     setIsLoading(true);
 
-    //  Verifying the code
+    //  We have already received the code, now user
+    // has to verify the code.
     if (showVerificationInput) {
       if (code.length <= 2) {
         toastMessage('Please enter verification code from the message!');
@@ -72,17 +64,18 @@ const Register = () => {
 
       confirm
         ?.confirm(code)
-        .then(() => {
-          setIsLoading(false);
-          navigation.navigate('Account');
-        })
+        .then(() => navigation.navigate('Account'))
         .catch(() => {
-          toastMessage('Invalid verification code, please press try again!');
+          toastMessage('Invalid verification code, please try again!');
+        })
+        .finally(() => {
           setIsLoading(false);
         });
       return;
     }
 
+    // This is initial stage before the process above.
+    // Here we request verification code after receiving the contact.
     if (!phoneInput.current?.isValidNumber(phoneNumber)) {
       Alert.alert('Error', 'The phone number entered is not valid!');
       setIsLoading(false);

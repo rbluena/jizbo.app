@@ -40,8 +40,14 @@ export const COLORS = {
     textColor: PALETTE.slate[300],
   },
   status: {
-    online: PALETTE.primary[300],
-    offline: PALETTE.slate[300],
+    online: {
+      backgroundColor: PALETTE.primary[400],
+      borderColor: PALETTE.primary[500],
+    },
+    offline: {
+      backgroundColor: PALETTE.slate[300],
+      borderColor: PALETTE.slate[400],
+    },
   },
   header: {
     title: PALETTE.slate[700],

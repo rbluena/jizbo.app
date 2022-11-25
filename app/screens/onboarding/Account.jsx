@@ -1,68 +1,123 @@
-import { SCREEN } from '@app/constants';
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  TouchableHighlight,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import React, { useState, useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Avatar from '~/app/components/common/Avatar';
+import BlockButton from '~/app/components/common/BlockButton';
 import ScreenHeader from '~/app/components/common/ScreenHeader';
 import TextComponent from '~/app/components/common/Text/Text';
-import TextInput from '~/app/components/form/TextInput/TextInput';
+import TextInput from '~/app/components/form/TextInput';
+import { SCREEN, FIREBASE_ASSETS } from '~/app/constants';
+import { toastMessage } from '~/app/utils/message';
 
 import { COLORS, FONT_SIZE } from '@app/styles/theme';
 
 const Profile = () => {
+  // eslint-disable-next-line no-multi-assign
+  const currUserRef = (useRef(null).current = auth().currentUser);
   const [profileImage, setProfileImage] = useState(null);
-  const [userName, setUserName] = useState('');
+  const [displayName, setDisplayName] = useState(
+    () => currUserRef?.displayName || '',
+  );
+  const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState('');
 
-  const loadProfileImage = () => {};
+  const navigation = useNavigation();
+
+  /**
+   *
+   */
+  const loadProfileImage = async () => {
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri);
+    }
+  };
+
+  /**
+   *
+   */
+  const saveUserData = async () => {
+    setIsLoading(true);
+
+    if (profileImage.length > 0) {
+      // Upload the image first
+      const reference = storage().ref(
+        `${FIREBASE_ASSETS.profiles.images}/${currUserRef?.uid}`,
+      );
+
+      try {
+        await reference.putFile(profileImage);
+        const photoURL = await reference.getDownloadURL();
+        await auth().currentUser.updateProfile({
+          displayName,
+          photoURL,
+        });
+        navigation.navigate('Home', { displayName, photoURL, bio });
+      } catch (error) {
+        // TODO: Log the error
+        toastMessage('There was an error on our end.');
+      } finally {
+        setIsLoading(false);
+      }
+
+      return;
+    }
+
+    try {
+      await auth().currentUser.updateProfile({ displayName });
+      navigation.navigate('Home', { displayName, bio });
+    } catch (error) {
+      // TODO: Log the error received
+      toastMessage('There was an error on our end.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <ScreenHeader
-        textHeading="Account"
-        textSubheading="Provide your public information"
-      />
-      <TouchableHighlight
-        style={styles.profileImageContainer}
-        onPress={loadProfileImage}>
-        {profileImage ? <Image /> : <Text style={styles.profileLetter}>R</Text>}
-      </TouchableHighlight>
+      <View>
+        <ScreenHeader
+          textHeading={displayName.length ? displayName : 'Account'}
+          textSubheading={bio.length ? bio : 'Add your public information'}
+        />
+        <Avatar
+          initial={displayName[0]?.toLocaleUpperCase()}
+          size="l"
+          loadProfileImage={loadProfileImage}
+          uri={profileImage || currUserRef?.photoURL}
+          isEditable
+        />
+      </View>
 
       <View>
         <TextInput
           placeholder="Name"
           autoFocus
-          style={{
-            fontSize: FONT_SIZE.xl,
-            borderBottomWidth: 1,
-            borderBottomColor: COLORS.input.borderColor,
-            width: '100%',
-            marginVertical: 8,
-            padding: 0,
-          }}
-          onChange={text => setUserName(text)}
-          value={userName}
+          onChange={text => setDisplayName(text)}
+          value={displayName}
         />
         <TextInput
           placeholder="About me"
           onChange={text => setBio(text)}
-          style={{
-            fontSize: FONT_SIZE.l,
-            borderBottomWidth: 1,
-            borderBottomColor: COLORS.input.borderColor,
-            marginVertical: 8,
-            width: '100%',
-            padding: 0,
-          }}
+          style={{ height: 40, paddingBottom: 16 }}
           value={bio}
           multiline
+          numberOfLines={3}
+          maxLength={150}
         />
-        <TextComponent style={{ marginTop: 8 }}>
+
+        <TextComponent variant="muted" style={{ marginTop: 8 }}>
           This could be your fullname or nickname. This is how people will know
           you from Jizbo.
         </TextComponent>
@@ -73,17 +128,12 @@ const Profile = () => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <TouchableOpacity style={styles.saveButton}>
-          <Text
-            style={{
-              color: 'white',
-              textAlign: 'center',
-              fontSize: 20,
-              padding: 8,
-            }}>
-            Save
-          </Text>
-        </TouchableOpacity>
+        <BlockButton
+          textLabel="Continue"
+          onPress={saveUserData}
+          disabled={displayName.length === 0 || isLoading}
+          showLoader={isLoading}
+        />
       </View>
     </View>
   );
@@ -94,8 +144,9 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 0.1 * SCREEN.width,
+    justifyContent: 'space-between',
+    paddingHorizontal: 0.1 * SCREEN.width,
+    backgroundColor: COLORS.container.background,
   },
   profileImageContainer: {
     width: 120,

@@ -11,9 +11,21 @@ export const SCREEN = {
 
 export const STATUSES = {
   online: {
-    color: COLORS.status.online,
+    name: 'online',
+    backgroundColor: COLORS.status.online.backgroundColor,
+    borderColor: COLORS.status.online.borderColor,
   },
   offline: {
-    color: COLORS.status.offline,
+    name: 'offline',
+    backgroundColor: COLORS.status.offline.backgroundColor,
+    borderColor: COLORS.status.offline.borderColor,
+  },
+};
+
+export const FIREBASE_ASSETS = {
+  profiles: {
+    images: 'profiles/images/',
+    videos: 'profiles/videos',
+    qrCodes: 'profiles/qr-codes',
   },
 };

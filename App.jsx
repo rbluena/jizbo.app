@@ -1,4 +1,5 @@
 /* eslint-disable react/style-prop-object */
+import auth from '@react-native-firebase/auth';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 // import AccountScreen from '@app/screens/onboarding/Account';
@@ -15,6 +16,12 @@ import AuthNavigator from '~/app/routes/AuthNavigation';
 initializeApp();
 
 export default function App() {
+  const { currentUser } = auth();
+
+  if (currentUser?.displayName?.length) {
+    // Render different part of the UI
+  }
+
   return (
     <AppLoader>
       <AuthNavigator />

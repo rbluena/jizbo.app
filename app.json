@@ -18,7 +18,16 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"],
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Jizbo would like to access your photos."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": false
     },
