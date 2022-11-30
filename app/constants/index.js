@@ -29,3 +29,11 @@ export const FIREBASE_ASSETS = {
     qrCodes: 'profiles/qr-codes',
   },
 };
+
+export const FIREBASE_STORAGES = {
+  profiles: {
+    images: 'profiles/images/',
+    videos: 'profiles/videos',
+    qrCodes: 'profiles/qr-codes',
+  },
+};

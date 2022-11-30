@@ -32,7 +32,7 @@ const DATA = [
 
 const Home = () => {
   const navigation = useNavigation();
-  const goToSettings = () => navigation.navigate('Settings');
+  const goToSettings = () => navigation.push('Settings');
   const openSearchModal = () => navigation.push('SearchModal');
 
   return (

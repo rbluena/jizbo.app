@@ -35,6 +35,7 @@ const Avatar = ({
           <Image
             style={[styles.img, size === 'l' ? largeStyle : {}]}
             source={{ uri }}
+            resizeMode="contain"
           />
         ) : (
           <Text
@@ -64,6 +65,7 @@ const Avatar = ({
             size === 'l' ? largeStyle : { borderRadius: rounded ? 30 : 15 },
           ]}
           source={{ uri }}
+          resizeMode="contain"
         />
       ) : (
         <Text

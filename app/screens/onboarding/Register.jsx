@@ -25,25 +25,26 @@ const Register = () => {
   const [confirm, setConfirm] = useState(null);
   const [code, setCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState(null);
+  const [country, setCountry] = useState('');
   const phoneInput = useRef(null);
   const navigation = useNavigation();
 
   /**
    *
    */
-  const signInWithPhoneNumber = () => {
-    auth()
-      .signInWithPhoneNumber(phoneNumber)
-      .then(confirmation => {
-        setConfirm(confirmation);
-        setShowVerificationInput(true);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setConfirm(null);
-        setShowVerificationInput(false);
-        setIsLoading(false);
-      });
+  const signInWithPhoneNumber = async () => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      setConfirm(confirmation);
+      setShowVerificationInput(true);
+    } catch (error) {
+      if (error.message) {
+        toastMessage('Please enter verification code from the message!');
+      }
+      setShowVerificationInput(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   /**
@@ -54,7 +55,7 @@ const Register = () => {
     setIsLoading(true);
 
     //  We have already received the code, now user
-    // has to verify the code.
+    // has to verify the code sent via SMS.
     if (showVerificationInput) {
       if (code.length <= 2) {
         toastMessage('Please enter verification code from the message!');
@@ -64,17 +65,17 @@ const Register = () => {
 
       confirm
         ?.confirm(code)
-        .then(() => navigation.navigate('Account'))
+        .then(() => navigation.navigate('Account', { country }))
         .catch(() => {
           toastMessage('Invalid verification code, please try again!');
         })
         .finally(() => {
           setIsLoading(false);
         });
+
       return;
     }
 
-    // This is initial stage before the process above.
     // Here we request verification code after receiving the contact.
     if (!phoneInput.current?.isValidNumber(phoneNumber)) {
       Alert.alert('Error', 'The phone number entered is not valid!');
@@ -128,6 +129,7 @@ const Register = () => {
               <PhoneInput
                 defaultValue={phoneNumber}
                 onChange={text => setPhoneNumber(text)}
+                onChangeCountry={text => setCountry(text)}
                 ref={phoneInput}
               />
               <TextComponent

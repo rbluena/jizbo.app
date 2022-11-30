@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
-import storage from '@react-native-firebase/storage';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import PropTypes from 'prop-types';
 import React, { useState, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Avatar from '~/app/components/common/Avatar';
@@ -9,12 +9,14 @@ import BlockButton from '~/app/components/common/BlockButton';
 import ScreenHeader from '~/app/components/common/ScreenHeader';
 import TextComponent from '~/app/components/common/Text/Text';
 import TextInput from '~/app/components/form/TextInput';
-import { SCREEN, FIREBASE_ASSETS } from '~/app/constants';
+import { SCREEN } from '~/app/constants';
+import { uploadProfileImage } from '~/app/lib/db/storage.collection';
+import { createNewUser } from '~/app/lib/db/users.collection';
 import { toastMessage } from '~/app/utils/message';
 
 import { COLORS, FONT_SIZE } from '@app/styles/theme';
 
-const Profile = () => {
+const Profile = ({ route }) => {
   // eslint-disable-next-line no-multi-assign
   const currUserRef = (useRef(null).current = auth().currentUser);
   const [profileImage, setProfileImage] = useState(null);
@@ -26,6 +28,7 @@ const Profile = () => {
   const [bio, setBio] = useState('');
 
   const navigation = useNavigation();
+  const country = route?.params?.country;
 
   /**
    *
@@ -50,36 +53,32 @@ const Profile = () => {
   const saveUserData = async () => {
     setIsLoading(true);
 
-    if (profileImage.length > 0) {
-      // Upload the image first
-      const reference = storage().ref(
-        `${FIREBASE_ASSETS.profiles.images}/${currUserRef?.uid}`,
-      );
+    try {
+      let photoURL = null;
 
-      try {
-        await reference.putFile(profileImage);
-        const photoURL = await reference.getDownloadURL();
-        await auth().currentUser.updateProfile({
-          displayName,
-          photoURL,
+      // Uploading user's image if user choose to do so.
+      if (profileImage.length > 0) {
+        photoURL = await uploadProfileImage({
+          uid: currUserRef?.uid,
+          filePath: profileImage,
         });
-        navigation.navigate('Home', { displayName, photoURL, bio });
-      } catch (error) {
-        // TODO: Log the error
-        toastMessage('There was an error on our end.');
-      } finally {
-        setIsLoading(false);
       }
 
-      return;
-    }
+      await createNewUser({
+        displayName,
+        photoURL,
+        phoneNumber: currUserRef?.phoneNumber,
+        occupation,
+        country,
+      });
 
-    try {
-      await auth().currentUser.updateProfile({ displayName });
-      navigation.navigate('Home', { displayName, bio });
+      navigation.navigate('Home');
     } catch (error) {
-      // TODO: Log the error received
-      toastMessage('There was an error on our end.');
+      console.log(error);
+      //  TODO: We might want to provide this error information to an error reporting service
+      toastMessage(
+        'There was an error on our end. You can try it again later!',
+      );
     } finally {
       setIsLoading(false);
     }
@@ -144,6 +143,10 @@ const Profile = () => {
       </View>
     </View>
   );
+};
+
+Profile.propTypes = {
+  route: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Profile;

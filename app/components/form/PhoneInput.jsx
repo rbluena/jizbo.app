@@ -4,24 +4,21 @@ import { StyleSheet } from 'react-native';
 import PhoneInputComponent from 'react-native-phone-input';
 import { COLORS } from '~/app/styles/theme';
 
-const PhoneInput = forwardRef(
-  ({ initialValue = '', initialCountry = 'us', onChange, ...props }, ref) => {
-    return (
-      <PhoneInputComponent
-        initialValue={initialValue}
-        initialCountry={initialCountry}
-        style={styles.container}
-        textStyle={styles.textStyle}
-        onChangePhoneNumber={onChange}
-        ref={ref}
-        {...props}
-        onPressFlag={() => {}}
-        autoFormat
-        autoFocus
-      />
-    );
-  },
-);
+const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
+  return (
+    <PhoneInputComponent
+      initialCountry="tz"
+      style={styles.container}
+      textStyle={styles.textStyle}
+      onChangePhoneNumber={onChange}
+      ref={ref}
+      onPressFlag={() => {}}
+      autoFormat
+      autoFocus
+      {...props}
+    />
+  );
+});
 
 PhoneInput.defaultProps = {
   initialCountry: 'us',
